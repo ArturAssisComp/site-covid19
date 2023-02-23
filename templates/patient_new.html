@@ -2,13 +2,20 @@
 {% load widget_tweaks %}
 
 {% block breadcrumb %}
-  <li class="breadcrumb-item active">Alterar Informações do Usuário</li>
+  <li class="breadcrumb-item"><a href="{% url 'home_logged' %}" style="color:mediumblue">Voltar</a></li>
+  <li class="breadcrumb-item active">Inserção de novo paciente</li>
 {% endblock %}
 
-{% load static %}
-
 {% block content %}
+    {% if messages %}
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
     {% if form.errors %}
+        <br>
         {% for field in form %}
             {% if field.errors %}
                 <div class="alert alert-danger">
@@ -22,15 +29,18 @@
             </div>
         {% endfor %}
     {% endif %}
+
     <hr>
     <div class="card">
         <div class="card-header">
-            Alterar Senha
+            Cadastro
         </div>
         <div class="card-body">
             <div class="container">
+
                 <form method="post">
                     {% csrf_token %}
+
                     {% for field in form %}
                         <div class="form-group">
                             {{ field.label_tag }}
@@ -42,10 +52,13 @@
                             {% endif %}
                         </div>
                     {% endfor %}
-                    <button type="submit" class="btn btn-info ml-2">Alterar Senha</button>
+
+                    <button type="submit" class="btn btn-info ml-2">Cadastrar paciente</button>
                 </form>
             </div>
         </div>
     </div>
+    <br>
+    <br>
     <br>
 {% endblock %}
